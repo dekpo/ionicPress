@@ -32,12 +32,13 @@ export class PostsPage implements OnInit {
     });
     await loading.present();
     } 
-    
+
     this.api.getPosts( this.page ).subscribe( res => {
 
       if (infiniteScroll) {
-        infiniteScroll.target.complete();
+        
         this.posts = [...this.posts, ...res.posts];
+        infiniteScroll.target.complete();
 
         if (this.page == this.totalPages ) {
           infiniteScroll.target.disabled = true;
@@ -51,10 +52,12 @@ export class PostsPage implements OnInit {
       this.totalPosts = res.totalPosts;
       
       console.log('loadPosts: ', res);
-
+    }, err => {
+      console.log('loadPosts ERROR !', err );
+    }, () => {
       if (!infiniteScroll) {
-      loading.dismiss();
-      }
+        loading.dismiss();
+        }  
     })
   }
 
