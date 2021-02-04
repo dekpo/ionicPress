@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from './../../services/api.service';
 import { LoadingController, PopoverController } from '@ionic/angular';
 import { CategoryFilterPage } from '../category-filter/category-filter.page';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class PostsPage implements OnInit {
   constructor(
     private api: ApiService,
     private loadingCtrl: LoadingController,
-    private popOver: PopoverController) { }
+    private popOver: PopoverController,
+    private router: Router) { }
 
   ngOnInit() {
     this.loadPosts();
@@ -106,6 +108,10 @@ export class PostsPage implements OnInit {
   searchChanged(event){
     this.page = 1;
     this.loadPosts();
+  }
+
+  readPost(id){
+    this.router.navigateByUrl('/posts/'+ id);
   }
 
 }
