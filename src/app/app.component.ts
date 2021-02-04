@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   appPages = [
     {
-      title: 'The News',
+      title: 'News',
       url: '/posts',
       icon: 'newspaper'
     }

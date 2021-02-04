@@ -5,11 +5,12 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
 
-    <ion-title>The News</ion-title>
+    <ion-title>News</ion-title>
 
     <ion-buttons slot="end">
       <ion-button (click)="openFilter($event)">
-      <ion-icon name="pricetag" slot="icon-only"></ion-icon>
+        <span *ngIf="categoryName !== '' && categoryName !== 'All' ">{{categoryName}}</span>
+        <ion-icon  [name]="categoryFilter ? 'pricetag' : 'pricetag-outline' " slot="start"></ion-icon>
       </ion-button>
     </ion-buttons>
 
@@ -17,10 +18,11 @@
 </ion-header>
 
 <ion-content>
-
-  <div *ngIf="totalPosts > 0" class="ion-text-center ion-padding">
-    Found {{ totalPosts }} News
-  </div>
+<ion-searchbar animated="true" (ionChange)="searchChanged($event)" debounce="1000" [(ngModel)]="searchTerm"></ion-searchbar>
+  
+<div *ngIf="totalPosts > 0" class="ion-text-center ion-padding">
+    Found {{ totalPosts }} News <span *ngIf="categoryName !== '' && categoryName !== 'All' ">in {{categoryName}}</span>
+</div>
   
   <ion-card *ngFor="let post of posts">
     <ion-card-header>

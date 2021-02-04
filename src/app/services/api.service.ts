@@ -11,7 +11,7 @@ export class ApiService {
 
   constructor(private http: HttpClient ) { }
 
-  getPosts( page = 1, categoryId = null ): Observable<any>{
+  getPosts( page = 1, categoryId = null, search = '' ): Observable<any>{
 
     const options = {
       observe: "response" as "body",
@@ -24,6 +24,8 @@ export class ApiService {
     let URL = environment.apiUrl + 'posts?_embed';
 
     if (categoryId) URL += '&categories=' + categoryId;
+
+    if (search != '') URL += '&search=' + search;
 
     console.log('getPosts URL:', URL );
 
@@ -70,7 +72,8 @@ export class ApiService {
           items.push({
             id: item.id,
             name: item.name,
-            slug: item.slug
+            slug: item.slug,
+            count: item.count
           });
         }
 

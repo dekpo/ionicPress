@@ -15,6 +15,8 @@ export class PostsPage implements OnInit {
   totalPosts = 0;
   totalPages = 0
   categoryFilter = null;
+  categoryName = '';
+  searchTerm = '';
 
   constructor(
     private api: ApiService,
@@ -36,7 +38,7 @@ export class PostsPage implements OnInit {
     await loading.present();
     } 
 
-    this.api.getPosts( this.page, this.categoryFilter ).subscribe( res => {
+    this.api.getPosts( this.page, this.categoryFilter, this.searchTerm ).subscribe( res => {
 
 
       if (infiniteScroll) {
@@ -90,12 +92,20 @@ export class PostsPage implements OnInit {
       console.log('after popOver: ', res);
       if (res && res.data) {
         this.categoryFilter = res.data.id;
+        this.loadPosts();
+        // on réinitialise page et totalPages pour infiniteScroll
         this.page = 1;
         this.totalPages = 0;
-        this.loadPosts();
+        // on peut se permettre de récup le nom de la catégorie courant
+        this.categoryName = res.data.name;
       }
     })
     await popover.present();
+  }
+
+  searchChanged(event){
+    this.page = 1;
+    this.loadPosts();
   }
 
 }
