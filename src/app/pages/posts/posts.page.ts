@@ -96,7 +96,7 @@ export class PostsPage implements OnInit {
         // on réinitialise page et totalPages pour infiniteScroll
         this.page = 1;
         this.totalPages = 0;
-        // on peut se permettre de récup le nom de la catégorie courant
+        // on peut se permettre de récup le nom de la catégorie courante
         this.categoryName = res.data.name;
       }
     })
