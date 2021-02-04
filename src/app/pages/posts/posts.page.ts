@@ -36,13 +36,13 @@ export class PostsPage implements OnInit {
     await loading.present();
     } 
 
-    this.api.getPosts( this.page ).subscribe( res => {
+    this.api.getPosts( this.page, this.categoryFilter ).subscribe( res => {
 
       if (infiniteScroll) {
-        
-        this.posts = [...this.posts, ...res.posts];
-        infiniteScroll.target.complete();
 
+        infiniteScroll.target.complete();
+        this.posts = [...this.posts, ...res.posts];
+        
         if (this.page == this.totalPages ) {
           infiniteScroll.target.disabled = true;
         }
@@ -82,6 +82,8 @@ export class PostsPage implements OnInit {
       console.log('after popOver: ', res);
       if (res && res.data) {
         this.categoryFilter = res.data.id;
+        // this.page = 1;
+        this.loadPosts();
       }
     })
     await popover.present();
