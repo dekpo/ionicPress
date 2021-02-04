@@ -33,7 +33,7 @@ export class ApiService {
 
         for(let post of data){
           if ( post['_embedded']['wp:featuredmedia'] ) {
-            post.media_url = post['_embedded']['wp:featuredmedia'][0]['media_details'].sizes['medium'].source_url;
+            post.media_url = post['_embedded']['wp:featuredmedia'][0]['media_details'].sizes['full'].source_url;
           }
         }
         
@@ -62,9 +62,11 @@ export class ApiService {
     return this.http.get<any>(environment.apiUrl + 'categories').pipe(
       map( res => { 
         
+        
         const items = [];
 
         for (let item of res){
+          if (item.count == 0) continue;
           items.push({
             id: item.id,
             name: item.name,

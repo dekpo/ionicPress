@@ -38,14 +38,17 @@ export class PostsPage implements OnInit {
 
     this.api.getPosts( this.page, this.categoryFilter ).subscribe( res => {
 
+
       if (infiniteScroll) {
 
-        infiniteScroll.target.complete();
-        this.posts = [...this.posts, ...res.posts];
         
-        if (this.page == this.totalPages ) {
-          infiniteScroll.target.disabled = true;
-        }
+        this.posts = [...this.posts, ...res.posts];
+        infiniteScroll.target.complete();
+        
+        // condition inutile remplacée par *ngIf sur l'infiniteScroll
+        /* if (this.page == this.totalPages ) {
+          infiniteScroll.target.complete();
+        }  */
 
       } else {
         this.posts = res.posts;
@@ -55,6 +58,11 @@ export class PostsPage implements OnInit {
       this.totalPosts = res.totalPosts;
       
       console.log('loadPosts: ', res);
+      console.log('this.page: ', this.page);
+      console.log('categoryFilter: ',this.categoryFilter);
+      console.log('infiniteScroll: ',infiniteScroll);
+
+
     }, err => {
       console.log('loadPosts ERROR !', err );
     }, () => {
@@ -82,7 +90,8 @@ export class PostsPage implements OnInit {
       console.log('after popOver: ', res);
       if (res && res.data) {
         this.categoryFilter = res.data.id;
-        // this.page = 1;
+        this.page = 1;
+        this.totalPages = 0;
         this.loadPosts();
       }
     })
