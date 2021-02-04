@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from './../../services/api.service';
-import { LoadingController } from '@ionic/angular';
+import { LoadingController, PopoverController } from '@ionic/angular';
+import { CategoryFilterPage } from '../category-filter/category-filter.page';
 
 
 @Component({
@@ -13,10 +14,12 @@ export class PostsPage implements OnInit {
   posts = [];
   totalPosts = 0;
   totalPages = 0
+  categoryFilter = null;
 
   constructor(
     private api: ApiService,
-    private loadingCtrl: LoadingController) { }
+    private loadingCtrl: LoadingController,
+    private popOver: PopoverController) { }
 
   ngOnInit() {
     this.loadPosts();
@@ -64,6 +67,24 @@ export class PostsPage implements OnInit {
   loadMore( event ){
     this.page++;
     this.loadPosts( event );
+  }
+
+  async openFilter(event){
+    const popover = await this.popOver.create({
+      component: CategoryFilterPage,
+      event: event,
+      translucent: false,
+      componentProps: {
+        selected: this.categoryFilter
+      }
+    });
+    popover.onDidDismiss().then( res => {
+      console.log('after popOver: ', res);
+      if (res && res.data) {
+        this.categoryFilter = res.data.id;
+      }
+    })
+    await popover.present();
   }
 
 }
