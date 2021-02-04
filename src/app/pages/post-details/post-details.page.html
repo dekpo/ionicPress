@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/posts"></ion-back-button>
     </ion-buttons>
@@ -19,8 +19,8 @@
 
 <ion-footer>
   <ion-toolbar color="primary">
-    <ion-button color="light" expand="full" fill="clear" (click)="sharePost()">
-      Share
+    <ion-button color="light" fill="clear" expand="full" (click)="sharePost()">
+      <ion-icon name="share" slot="start"></ion-icon> Share
     </ion-button>
   </ion-toolbar>
 </ion-footer>
