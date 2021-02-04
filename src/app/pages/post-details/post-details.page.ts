@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../services/api.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-post-details',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PostDetailsPage implements OnInit {
 
-  constructor() { }
+  constructor(private api: ApiService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    const id = this.route.snapshot.paramMap.get('id');
+    console.log('PostID: ', id);
+    this.api.getPostContent(id).subscribe( res => {
+      console.log('postContent: ', res);
+    })
   }
 
 }
