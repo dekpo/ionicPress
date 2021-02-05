@@ -1,5 +1,5 @@
 {
-  "appId": "com.dekpo.ionicstarter",
+  "appId": "io.ionic.starter",
   "appName": "ionicPress",
   "bundledWebRuntime": false,
   "npmClient": "npm",

@@ -9,12 +9,14 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule } from '@angular/common/http'
 import { CategoryFilterPageModule } from './pages/category-filter/category-filter.module';
+import { OneSignal } from '@ionic-native/onesignal/ngx';
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule, CategoryFilterPageModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  imports: [BrowserModule, IonicModule.forRoot(), IonicStorageModule.forRoot(), AppRoutingModule, HttpClientModule, CategoryFilterPageModule],
+  providers: [OneSignal,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
