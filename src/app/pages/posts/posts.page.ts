@@ -5,6 +5,7 @@ import { CategoryFilterPage } from '../category-filter/category-filter.page';
 import { Router } from '@angular/router';
 
 
+
 @Component({
   selector: 'app-posts',
   templateUrl: './posts.page.html',
@@ -16,8 +17,9 @@ export class PostsPage implements OnInit {
   totalPosts = 0;
   totalPages = 0
   categoryFilter = null;
-  categoryName = '';
   searchTerm = '';
+  categoryName = '';
+  
 
   constructor(
     private api: ApiService,
@@ -51,7 +53,7 @@ export class PostsPage implements OnInit {
         
         // condition inutile remplacée par *ngIf sur l'infiniteScroll
         /* if (this.page == this.totalPages ) {
-          infiniteScroll.target.complete();
+          infiniteScroll.target.disabled = true;
         }  */
 
       } else {
@@ -94,24 +96,24 @@ export class PostsPage implements OnInit {
       console.log('after popOver: ', res);
       if (res && res.data) {
         this.categoryFilter = res.data.id;
-        this.loadPosts();
-        // on réinitialise page et totalPages pour infiniteScroll
-        this.page = 1;
-        this.totalPages = 0;
-        // on peut se permettre de récup le nom de la catégorie courante
         this.categoryName = res.data.name;
+        this.loadPosts();
+        this.page = 1;
+        // this.totalPages = 0;
       }
     })
     await popover.present();
   }
 
-  searchChanged(event){
+  searchChanged(){
+    console.log("searchTerm", this.searchTerm);
     this.page = 1;
     this.loadPosts();
   }
 
   readPost(id){
-    this.router.navigateByUrl('/posts/'+ id);
+    this.router.navigateByUrl('/posts/' + id);
   }
+
 
 }

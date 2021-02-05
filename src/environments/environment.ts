@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://wordpress-learning.com/wp-json/wp/v2/'
+  apiUrl: 'https://sport.altitude-eyewear.net/wp-json/wp/v2/'
 };
 
 /*

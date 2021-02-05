@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>{{ page?.title.rendered }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div *ngIf="page">
+    <ion-img *ngIf="page.media_url" [src]="page.media_url"></ion-img>
+    <div [innerHTML]="page.content.rendered"></div>
+  </div>
+
+
+</ion-content>
+

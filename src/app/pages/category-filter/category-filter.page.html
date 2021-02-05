@@ -1,5 +1,4 @@
 <ion-content>
-<ion-list-header>Category</ion-list-header>
 <ion-list>
   <ion-item *ngFor="let cat of categories" button (click)="selectCat(cat)">
     <ion-icon name="checkmark" slot="start" *ngIf="selected == cat.id"></ion-icon>
